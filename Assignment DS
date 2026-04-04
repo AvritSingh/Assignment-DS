@@ -1,0 +1,195 @@
+Link: https://colab.research.google.com/drive/1r5tHngHDlt8swInIPdwqHPm9t80ZGAOh?usp=sharing
+
+# ===================== IMPORTS =====================
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# For better spacing
+def separator(title):
+    print("\n" + "="*60)
+    print(title)
+    print("="*60 + "\n")
+
+
+# ===================== Q1 =====================
+separator("Q1: Line Chart - Alphabet Inc Data")
+
+data = {
+    "Date": ["10-03-16","10-04-16","10-05-16","10-06-16","10-07-16"],
+    "Open": [774.25,776.03,779.31,779.00,779.66],
+    "High": [776.065002,778.710022,782.070007,780.47998,779.659973],
+    "Low": [769.5,772.89,775.65,775.539978,770.75],
+    "Close": [772.56,776.43,776.47,776.86,775.08]
+}
+
+df = pd.DataFrame(data)
+
+plt.figure()
+plt.plot(df["Date"], df["Open"], label="Open")
+plt.plot(df["Date"], df["High"], label="High")
+plt.plot(df["Date"], df["Low"], label="Low")
+plt.plot(df["Date"], df["Close"], label="Close")
+plt.title("Alphabet Inc Stock Data")
+plt.legend()
+plt.show()
+
+
+# ===================== Q2 =====================
+separator("Q2: Horizontal Bar Plot")
+
+nos = [2, 9, 20, 25, 30, 39]
+marks = [12, 24, 25, 27, 29, 30]
+
+plt.figure()
+plt.barh(marks, nos)
+plt.xlabel("Number of Students")
+plt.ylabel("Marks")
+plt.title("Students vs Marks")
+plt.show()
+
+
+# ===================== Q4 =====================
+separator("Q4: Customized Line Chart")
+
+months = ["Jan","Feb","Mar","Apr","May"]
+sales = [200, 300, 250, 400, 350]
+
+plt.figure()
+plt.plot(months, sales, marker="*", markersize=10, linestyle="--", linewidth=3)
+plt.title("Monthly Sales")
+plt.xlabel("Months")
+plt.ylabel("Sales")
+plt.show()
+
+
+# ===================== Q5 =====================
+separator("Q5: Bar Chart - Employee Data")
+
+dept = ["HR","Sales","Finance","Marketing","IT"]
+emp = [40,30,35,32,45]
+
+plt.figure()
+plt.bar(dept, emp, color="red")
+plt.title("Compu-Tech Employee Data")
+plt.xlabel("Departments")
+plt.ylabel("Number of Employees")
+plt.show()
+
+
+# ===================== Q6 =====================
+separator("Q6: Scatter + Bar Chart (Region Data)")
+
+data = {
+    "State": ["A","B","C","D","E","F"],
+    "Population": [50, 60, 70, 80, 90, 100],
+    "Literacy": [70, 75, 80, 65, 85, 90],
+    "Region": ["North","South","East","West","North","South"]
+}
+
+df = pd.DataFrame(data)
+
+# Scatter plots by region
+for region in df["Region"].unique():
+    sub = df[df["Region"] == region]
+    plt.scatter(sub["Population"], sub["Literacy"],
+                marker='D',
+                s=np.sqrt(sub["Literacy"]) * 10,
+                label=region)
+
+plt.xlabel("Population")
+plt.ylabel("Literacy Rate")
+plt.title("Population vs Literacy")
+plt.legend()
+plt.show()
+
+# Bar chart of avg literacy
+avg = df.groupby("Region")["Literacy"].mean()
+
+plt.figure()
+avg.plot(kind='bar')
+plt.title("Average Literacy by Region")
+plt.show()
+
+
+# ===================== Q7 =====================
+separator("Q7: Boxplot - Student Marks")
+
+marks_data = {
+    "Math": [70,80,75,90,60],
+    "Science": [65,85,78,88,72],
+    "English": [80,70,85,75,90],
+    "History": [60,75,70,80,65],
+    "Computer": [90,85,88,92,87]
+}
+
+df = pd.DataFrame(marks_data)
+
+plt.figure()
+df.plot(kind='box')
+plt.title("Subject-wise Performance")
+plt.show()
+
+
+# ===================== Q8 =====================
+separator("Q8: Grouped Bar Plot")
+
+men = (22, 30, 35, 35, 26)
+women = (25, 32, 30, 35, 29)
+
+x = np.arange(len(men))
+width = 0.35
+
+plt.figure()
+plt.bar(x - width/2, men, width, label='Men')
+plt.bar(x + width/2, women, width, label='Women')
+
+plt.xlabel("Groups")
+plt.ylabel("Scores")
+plt.title("Scores by Gender")
+plt.legend()
+plt.show()
+
+
+# ===================== Q9 =====================
+separator("Q9: Pie Chart + Subplots")
+
+products = ["A","B","C","D"]
+sales = [150, 200, 300, 250]
+
+# Pie chart
+plt.figure()
+plt.pie(sales, labels=products, autopct='%1.1f%%')
+plt.title("Sales Distribution")
+plt.show()
+
+# Subplot
+months = ["Jan","Feb","Mar","Apr"]
+soap = [50,60,55,70]
+facewash = [30,40,35,45]
+
+plt.figure()
+
+plt.subplot(2,1,1)
+plt.plot(months, soap)
+plt.title("Soap Sales")
+
+plt.subplot(2,1,2)
+plt.plot(months, facewash)
+plt.title("Facewash Sales")
+
+plt.tight_layout()
+plt.show()
+
+
+# ===================== Q10 =====================
+separator("Q10: Histogram - Profit")
+
+profit = [2000,3000,2500,4000,3500,3000,2800,3200]
+
+plt.figure()
+plt.hist(profit, bins=5)
+plt.title("Profit Distribution")
+plt.xlabel("Profit")
+plt.ylabel("Frequency")
+plt.show()
